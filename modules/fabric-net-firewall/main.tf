@@ -131,8 +131,13 @@ resource "google_compute_firewall" "custom" {
   target_service_accounts = each.value.use_service_accounts ? each.value.targets : null
   disabled                = lookup(each.value.extra_attributes, "disabled", false)
   priority                = lookup(each.value.extra_attributes, "priority", 1000)
-  # issues
-  # PR: https://github.com/terraform-google-modules/terraform-google-network/pull/212
+  # issues #212
+  #   https://github.com/terraform-google-modules/terraform-google-network/pull/212
+  #   Warning: Attribute is deprecated
+  #     on .terraform/modules/vpc.net-firewall/modules/fabric-net-firewall/main.tf line 134, in resource "google_compute_firewall" "custom":
+  #     134:   enable_logging          = lookup(each.value.extra_attributes, "enable_logging", null)
+  #   Deprecated in favor of log_config
+  # 
   # enable_logging          = lookup(each.value.extra_attributes, "enable_logging", null)
 
   dynamic "allow" {
